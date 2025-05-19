@@ -1,16 +1,18 @@
 package com.example.session10.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 public class Project {
     private int id;
     private String name;
     private String description;
-    private List<Document> documents;
+    private String documents;
 
     public Project() {
     }
-    public Project(int id, String name, String description, List<Document> documents) {
+    public Project(int id, String name, String description, String documents) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -41,11 +43,11 @@ public class Project {
         this.description = description;
     }
 
-    public List<Document> getDocuments() {
+    public String getDocuments() {
         return documents;
     }
 
-    public void setDocuments(List<Document> documents) {
+    public void setDocuments(String documents) {
         this.documents = documents;
     }
 }

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class ProjectRepositoryImp implements ProjectRepository {
@@ -64,5 +67,31 @@ public class ProjectRepositoryImp implements ProjectRepository {
             ConnectionDB.closeConnection(conn, callSt);
         }
         return false;
+    }
+
+    @Override
+    public List<Project> getAllProjects() {
+        Connection conn = null;
+        CallableStatement callSt = null;
+        List<Project> projects = new ArrayList<Project>();
+        try {
+            conn = ConnectionDB.openConnection();
+            callSt = conn.prepareCall("{call getProject()}");
+            ResultSet rs = callSt.executeQuery();
+            while (rs.next()) {
+                Project project = new Project();
+                project.setId(rs.getInt("id"));
+                project.setName(rs.getString("name"));
+                project.setDescription(rs.getString("description"));
+                project.setDocuments(rs.getString("documents"));
+                projects.add(project);
+            }
+            return projects;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            ConnectionDB.closeConnection(conn, callSt);
+        }
+        return projects;
     }
 }

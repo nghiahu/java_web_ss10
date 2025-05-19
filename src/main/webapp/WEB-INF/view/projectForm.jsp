@@ -27,7 +27,7 @@
     </tr>
     <tr>
       <td>Documents:</td>
-      <td><input type="file" name="files" multiple /></td>
+      <td><input type="file" name="documentFile"/></td>
     </tr>
     <tr>
       <td colspan="2">
